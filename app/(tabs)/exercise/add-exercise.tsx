@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Pressable, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { useQuery } from "@tanstack/react-query";
+import * as exerciseCategoriesService from "@/db/exercise-category";
 
 const AddExerciseScreen = () => {
   const [exerciseName, setExerciseName] = useState("");
   const [type, setType] = useState("Strength");
   const [description, setDescription] = useState("");
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["all-category"],
+    queryFn: exerciseCategoriesService.all,
+  });
 
   const saveExercise = () => {
     const exerciseData = {
@@ -37,20 +44,28 @@ const AddExerciseScreen = () => {
       <View className="mb-4">
         <Text className="text-white mb-2">Type</Text>
         <View className="bg-gray-800 rounded-md">
-          <Picker
-            selectedValue={type}
-            onValueChange={(itemValue) => setType(itemValue)}
-            style={{
-              paddingHorizontal: 4,
-              paddingVertical: 4,
-              backgroundColor: "#1f2937",
-              color: "white",
-            }}
-          >
-            <Picker.Item label="Strength" value="Strength" />
-            <Picker.Item label="Cardio" value="Cardio" />
-            <Picker.Item label="Flexibility" value="Flexibility" />
-          </Picker>
+          {isLoading ? (
+            <Text>Loading...</Text>
+          ) : (
+            <Picker
+              selectedValue={type}
+              onValueChange={(itemValue) => setType(itemValue)}
+              style={{
+                paddingHorizontal: 4,
+                paddingVertical: 4,
+                backgroundColor: "#1f2937",
+                color: "white",
+              }}
+            >
+              {data?.map((category) => (
+                <Picker.Item
+                  key={category.id}
+                  label={category.name}
+                  value={category.name}
+                />
+              ))}
+            </Picker>
+          )}
         </View>
       </View>
 

@@ -5,6 +5,9 @@ import "../global.css";
 import migrations from "@/db/migrations/migrations";
 import { db } from "@/db";
 import { Text, View } from "react-native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 // TODO:
 // Loading screen to setup db
@@ -27,9 +30,11 @@ export default function RootLayout() {
     );
   }
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <QueryClientProvider client={queryClient}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </QueryClientProvider>
   );
 }

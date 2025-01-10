@@ -15,6 +15,13 @@
       "when": 1736504079101,
       "tag": "0001_seed-exercise-categories",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1736505189280,
+      "tag": "0002_whole_quasar",
+      "breakpoints": true
     }
   ]
 }
