@@ -5,12 +5,8 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor: "#ffd33d",
-        headerStyle: {
-          backgroundColor: "#25292e",
-        },
-        headerShadowVisible: false,
-        headerTintColor: "#fff",
         tabBarStyle: {
           backgroundColor: "#25292e",
         },
@@ -32,11 +28,16 @@ export default function TabLayout() {
       <Tabs.Screen
         name="exercise/index"
         options={{
-          headerShown: false,
           title: "Exercise",
           tabBarIcon: ({ color, focused }) => (
             <FontAwesome5 name={"dumbbell"} color={color} size={24} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="exercise/add-exercise"
+        options={{
+          href: null,
         }}
       />
     </Tabs>

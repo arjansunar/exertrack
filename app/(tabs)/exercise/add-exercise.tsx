@@ -40,7 +40,12 @@ const AddExerciseScreen = () => {
           <Picker
             selectedValue={type}
             onValueChange={(itemValue) => setType(itemValue)}
-            className="bg-gray-800 p-3 text-white"
+            style={{
+              paddingHorizontal: 4,
+              paddingVertical: 4,
+              backgroundColor: "#1f2937",
+              color: "white",
+            }}
           >
             <Picker.Item label="Strength" value="Strength" />
             <Picker.Item label="Cardio" value="Cardio" />
