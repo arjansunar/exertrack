@@ -14,7 +14,7 @@ export default function Exercises() {
           <AntDesign name="pluscircleo" size={24} />
         </Link>
       </View>
-      <View className="mt-6">
+      <View className="mt-6 flex gap-2">
         {data?.map((exercise) => (
           <ExerciseItem data={exercise} key={exercise.id} />
         ))}
