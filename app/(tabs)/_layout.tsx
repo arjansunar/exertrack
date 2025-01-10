@@ -30,8 +30,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="exercises"
+        name="exercise/index"
         options={{
+          headerShown: false,
           title: "Exercise",
           tabBarIcon: ({ color, focused }) => (
             <FontAwesome5 name={"dumbbell"} color={color} size={24} />

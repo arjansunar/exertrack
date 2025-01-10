@@ -12,7 +12,7 @@ export default function Home() {
       }}
     >
       <Text style={{ color: "white" }}>Home</Text>
-      <Link href="/exercises" style={styles.button}>
+      <Link href="/exercise" style={styles.button}>
         Go to Exercise screen
       </Link>
     </View>
