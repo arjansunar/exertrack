@@ -2,6 +2,8 @@ import { eq } from "drizzle-orm";
 import { db } from ".";
 import { exercises } from "./schema";
 
+export type Exercise = typeof exercises.$inferSelect;
+
 export async function create(category: typeof exercises.$inferInsert) {
   return await db.insert(exercises).values(category);
 }
