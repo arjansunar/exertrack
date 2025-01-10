@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Pressable, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import * as exerciseCategoriesService from "@/db/exercise-category";
+import * as exercisesService from "@/db/exercise";
 
 const AddExerciseScreen = () => {
   const [exerciseName, setExerciseName] = useState("");
@@ -14,6 +15,10 @@ const AddExerciseScreen = () => {
     queryFn: exerciseCategoriesService.all,
   });
 
+  const { mutate, isPending, isSuccess } = useMutation({
+    mutationFn: exercisesService.create,
+  });
+
   useEffect(() => {
     if (!data) return;
     if (data.length === 0) return;
@@ -21,13 +26,11 @@ const AddExerciseScreen = () => {
   }, [data]);
 
   const saveExercise = () => {
-    const exerciseData = {
+    mutate({
       name: exerciseName,
-      type: categoryId,
+      categoryId,
       description,
-    };
-    console.log("Exercise Saved:", exerciseData);
-    // Add logic to save exercise
+    });
   };
 
   return (
@@ -93,7 +96,11 @@ const AddExerciseScreen = () => {
         className="bg-green-500 p-4 rounded-md mt-4"
         onPress={saveExercise}
       >
-        <Text className="text-white text-center font-bold">Save Exercise</Text>
+        <Text className="text-white text-center font-bold">
+          {isSuccess && "Saved!!"}
+          {isPending && "loading.."}
+          {!isPending && !isSuccess && "Save exercise"}
+        </Text>
       </Pressable>
     </ScrollView>
   );
