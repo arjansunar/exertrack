@@ -6,7 +6,7 @@ import * as exerciseCategoriesService from "@/db/exercise-category";
 
 const AddExerciseScreen = () => {
   const [exerciseName, setExerciseName] = useState("");
-  const [type, setType] = useState("Strength");
+  const [categoryId, setCategoryId] = useState<number>();
   const [description, setDescription] = useState("");
 
   const { data, isLoading } = useQuery({
@@ -17,7 +17,7 @@ const AddExerciseScreen = () => {
   const saveExercise = () => {
     const exerciseData = {
       name: exerciseName,
-      type,
+      type: categoryId,
       description,
     };
     console.log("Exercise Saved:", exerciseData);
@@ -42,14 +42,16 @@ const AddExerciseScreen = () => {
       </View>
 
       <View className="mb-4">
-        <Text className="text-white mb-2">Type</Text>
+        <Text className="text-white mb-2">Category</Text>
         <View className="bg-gray-800 rounded-md">
           {isLoading ? (
             <Text>Loading...</Text>
           ) : (
             <Picker
-              selectedValue={type}
-              onValueChange={(itemValue) => setType(itemValue)}
+              placeholder="Select category"
+              selectedValue={categoryId}
+              enabled={isLoading || data?.length === 0}
+              onValueChange={(itemValue) => setCategoryId(itemValue)}
               style={{
                 paddingHorizontal: 4,
                 paddingVertical: 4,
@@ -61,7 +63,7 @@ const AddExerciseScreen = () => {
                 <Picker.Item
                   key={category.id}
                   label={category.name}
-                  value={category.name}
+                  value={category.id}
                 />
               ))}
             </Picker>
