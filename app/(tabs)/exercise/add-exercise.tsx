@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Pressable, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useQuery } from "@tanstack/react-query";
@@ -13,6 +13,12 @@ const AddExerciseScreen = () => {
     queryKey: ["all-category"],
     queryFn: exerciseCategoriesService.all,
   });
+
+  useEffect(() => {
+    if (!data) return;
+    if (data.length === 0) return;
+    setCategoryId(data[0].id);
+  }, [data]);
 
   const saveExercise = () => {
     const exerciseData = {
@@ -50,7 +56,7 @@ const AddExerciseScreen = () => {
             <Picker
               placeholder="Select category"
               selectedValue={categoryId}
-              enabled={isLoading || data?.length === 0}
+              enabled={!isLoading}
               onValueChange={(itemValue) => setCategoryId(itemValue)}
               style={{
                 paddingHorizontal: 4,
