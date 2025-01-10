@@ -24,6 +24,7 @@ export default function Exercises() {
             borderWidth: 1,
           }}
         />
+        <Text className="text-white bg-red-500">Testing this out</Text>
       </View>
     </View>
   );
